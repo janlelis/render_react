@@ -19,8 +19,12 @@ RenderReact.on_client_and_server("ExampleComponent", { example: "prop" })
   </marquee>
 </div>
 <script>
-  RenderReact.ReactDOM.render(RenderReact.React.createElement(RenderReact.components.ExampleComponent, {"example":"!"}),
-  document.getElementById('RenderReact-caac405e-1714-495e-aeb4-77b42be42291'))
+  RenderReact.ReactDOM.render(
+    RenderReact.React.createElement(
+      RenderReact.components.ExampleComponent, {"example":"!"}
+    ),
+    document.getElementById('RenderReact-caac405e-1714-495e-aeb4-77b42be42291')
+  )
 </script>
 ```
 
@@ -42,9 +46,9 @@ gem 'render_react'
 
 ```javascript
 {
-  React: [variable which contains React, see first paragraph of https://facebook.github.io/react/docs/react-api.html],
-  ReactDOM: [variable which contains ReactDOM, see first paragraph of https://facebook.github.io/react/docs/react-dom.html]
-  ReactDOMServer: [variable which contains ReactDOMServer, see first paragraph of https://facebook.github.io/react/docs/react-dom-server.html],
+  React: [variable which contains React],
+  ReactDOM: [variable which contains ReactDOM],
+  ReactDOMServer: [variable which contains ReactDOMServer],
   components: {
     ComponentIdentifier1: [variable which contains the component 1],
     ComponentIdentifier2: [variable which contains the component 2],
@@ -52,6 +56,10 @@ gem 'render_react'
   }
 }
 ```
+
+- Where is **React**? See first paragraph of https://facebook.github.io/react/docs/react-api.html
+- Where is **ReactDOM**? See first paragraph of https://facebook.github.io/react/docs/react-dom.html
+- Where is **ReactDOMServer**? See first paragraph of https://facebook.github.io/react/docs/react-dom-server.html
 
 You can have two different javascript bundle files - one for server rendering, and one for client-rendering.
 
@@ -77,7 +85,7 @@ export default {
 }
 ```
 
-(gets later imported as `RenderReact`)
+Gets imported as `RenderReact`
 
 #### Example (With  Browser Globals)
 
