@@ -18439,6 +18439,46 @@ function getHostComponentFromComposite(inst) {
 
 var getHostComponentFromComposite_1 = getHostComponentFromComposite;
 
+/**
+ * Returns the DOM node rendered by this element.
+ *
+ * See https://facebook.github.io/react/docs/top-level-api.html#reactdom.finddomnode
+ *
+ * @param {ReactComponent|DOMElement} componentOrElement
+ * @return {?DOMElement} The root node of this element.
+ */
+function findDOMNode(componentOrElement) {
+  {
+    var owner = ReactCurrentOwner_1.current;
+    if (owner !== null) {
+      warning_1(owner._warnedAboutRefsInRender, '%s is accessing findDOMNode inside its render(). ' + 'render() should be a pure function of props and state. It should ' + 'never access something that requires stale data from the previous ' + 'render, such as refs. Move this logic to componentDidMount and ' + 'componentDidUpdate instead.', owner.getName() || 'A component');
+      owner._warnedAboutRefsInRender = true;
+    }
+  }
+  if (componentOrElement == null) {
+    return null;
+  }
+  if (componentOrElement.nodeType === 1) {
+    return componentOrElement;
+  }
+
+  var inst = ReactInstanceMap_1.get(componentOrElement);
+  if (inst) {
+    inst = getHostComponentFromComposite_1(inst);
+    return inst ? ReactDOMComponentTree_1.getNodeFromInstance(inst) : null;
+  }
+
+  if (typeof componentOrElement.render === 'function') {
+    invariant_1(false, 'findDOMNode was called on an unmounted component.');
+  } else {
+    invariant_1(false, 'Element appears to be neither ReactComponent nor DOMNode (keys: %s)', Object.keys(componentOrElement));
+  }
+}
+
+var findDOMNode_1 = findDOMNode;
+
+var renderSubtreeIntoContainer = ReactMount_1.renderSubtreeIntoContainer;
+
 {
   var reactProps = {
     children: true,
@@ -18638,6 +18678,18 @@ var ReactDOMInvalidARIAHook_1 = ReactDOMInvalidARIAHook$1;
 
 ReactDefaultInjection.inject();
 
+var ReactDOM$1 = {
+  findDOMNode: findDOMNode_1,
+  render: ReactMount_1.render,
+  unmountComponentAtNode: ReactMount_1.unmountComponentAtNode,
+  version: ReactVersion$3,
+
+  /* eslint-disable camelcase */
+  unstable_batchedUpdates: ReactUpdates_1.batchedUpdates,
+  unstable_renderSubtreeIntoContainer: renderSubtreeIntoContainer
+  /* eslint-enable camelcase */
+};
+
 // Inject the runtime into a devtools global hook regardless of browser.
 // Allows for debugging when the hook is injected on the page.
 if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== 'undefined' && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.inject === 'function') {
@@ -18706,6 +18758,10 @@ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== 'undefined' && typeof __REACT_DEVT
   ReactInstrumentation.debugTool.addHook(ReactDOMNullInputValuePropHook);
   ReactInstrumentation.debugTool.addHook(ReactDOMInvalidARIAHook);
 }
+
+var ReactDOM_1 = ReactDOM$1;
+
+var index$2 = ReactDOM_1;
 
 /**
  * Copyright 2014-present, Facebook, Inc.
@@ -18913,6 +18969,7 @@ var ExampleComponent = function (_React$Component) {
 
 var server = {
   React: react,
+  ReactDOM: index$2,
   ReactDOMServer: server$1,
   components: {
     ExampleComponent: ExampleComponent
