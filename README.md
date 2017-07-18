@@ -90,7 +90,7 @@ Gets imported as `RenderReact`
 #### Example (With  Browser Globals)
 
 ```javascript
-window.RenderReact {
+window.RenderReact = {
   React: React,
   ReactDOM: ReactDOM,
   ReactDOMServer: ReactDOMServer,
