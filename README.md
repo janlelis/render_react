@@ -11,7 +11,7 @@ class ExampleComponent extends React.Component {
 ```
 
 ```html
-RenderReact.on_client_and_server("ExampleComponent", { example: "prop" })
+RenderReact.on_client_and_server("ExampleComponent", { example: "!" })
 # =>
 <div id="RenderReact-caac405e-1714-495e-aeb4-77b42be42291">
   <marquee data-reactroot="" data-reactid="1" data-react-checksum="441921122">
