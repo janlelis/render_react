@@ -6,14 +6,19 @@ module RenderReact
   class Context
     attr_reader :app, :mode
 
-    def initialize(javascript_source = "", mode: :client_and_server)
-      @app = ExecJS.compile(javascript_source)
-      @mode = mode
+    def initialize(javascript_source = nil, mode: :client_and_server)
+      if javascript_source == nil
+        @app = nil
+        @mode = :client_only
+      else
+        @app = ExecJS.compile(javascript_source)
+        @mode = mode
+      end
     end
 
     def render_react(*args)
       case mode
-      when :client
+      when :client, :client_only
         on_client(*args)
       when :server
         on_server(*args)
@@ -32,11 +37,19 @@ module RenderReact
     end
 
     def on_server(component_name, props_hash = {})
+      if mode == :client_only
+        raise ArgumentError, "Context mode is :client_only, create a server context to be able to use server-side rendering"
+      end
+
       props_json = JSON.dump(props_hash)
       app.eval(server_script(component_name, props_json, true))
     end
 
     def on_client_and_server(component_name, props_hash = {})
+      if mode == :client_only
+        raise ArgumentError, "Context mode is :client_only, create a server context to be able to use server-side rendering"
+      end
+
       component_uuid = SecureRandom.uuid
       props_json = JSON.dump(props_hash)
       server_rendered = app.eval(server_script(component_name, props_json))

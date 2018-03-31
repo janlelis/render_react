@@ -108,6 +108,8 @@ Create a **RenderReact** context by passing your server-side JavaScript bundle:
 RenderReact.create_context! File.read('path/to/your/server-bundle.js'), mode: :client_and_server
 ```
 
+You can use it without a server-side bundle by not passing any file source.
+
 The optional `mode:` keyword argument can have one of the following values
 
 - `:client_and_server` (default) - component will be rendered server-side and mounted in the client

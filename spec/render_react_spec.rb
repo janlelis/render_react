@@ -103,21 +103,36 @@ describe "RenderReact" do
       end
     end
 
-      describe "#render_client" do
-        it "renders HTML code for mounting the React component in the client" do
-          context = RenderReact::Context.new(File.read(EXAMPLE_JAVASCRIPT_APP_PATH))
-          res = context.on_client("ExampleComponent", example: "!")
-          assert_match /<div id=\"RenderReact-.*<script>RenderReact.ReactDOM.render\(RenderReact.React.createElement\(RenderReact.components.ExampleComponent, {\"example\":\"!\"}\), document.getElementById\('RenderReact-.*/, res
-        end
+    describe "#render_client" do
+      it "renders HTML code for mounting the React component in the client" do
+        context = RenderReact::Context.new(File.read(EXAMPLE_JAVASCRIPT_APP_PATH))
+        res = context.on_client("ExampleComponent", example: "!")
+        assert_match /<div id=\"RenderReact-.*<script>RenderReact.ReactDOM.render\(RenderReact.React.createElement\(RenderReact.components.ExampleComponent, {\"example\":\"!\"}\), document.getElementById\('RenderReact-.*/, res
       end
+    end
 
-      describe "#render_server" do
-        it "renders a React component to static HTML via ReactDOMServer.renderToStaticMarkup" do
-          context = RenderReact::Context.new(File.read(EXAMPLE_JAVASCRIPT_APP_PATH))
-          res = context.on_server("ExampleComponent", example: "!")
-          assert_match /<marquee>Hello Ruby !<\/marquee>/, res
-        end
+    describe "#render_server" do
+      it "renders a React component to static HTML via ReactDOMServer.renderToStaticMarkup" do
+        context = RenderReact::Context.new(File.read(EXAMPLE_JAVASCRIPT_APP_PATH))
+        res = context.on_server("ExampleComponent", example: "!")
+        assert_match /<marquee>Hello Ruby !<\/marquee>/, res
       end
+    end
+  end
+
+  describe "[no server context]" do
+    it "works with client components" do
+      RenderReact.create_context!
+      res = RenderReact.("ExampleComponent", example: "!")
+      assert_match /<div id=\"RenderReact-.*<script>RenderReact.ReactDOM.render\(RenderReact.React.createElement\(RenderReact.components.ExampleComponent, {\"example\":\"!\"}\), document.getElementById\('RenderReact-.*/, res
+    end
+
+    it "does not work with server-side components" do
+      RenderReact.create_context!
+      assert_raises(ArgumentError){
+        RenderReact.on_server("ExampleComponent", example: "!")
+      }
+    end
   end
 end
 

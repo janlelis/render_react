@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### 1.0.1
+
+* Allow client-only mode by not passing any server-side context
+
 ### 1.0.0
 
 * Initial release
