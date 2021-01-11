@@ -1,4 +1,4 @@
-# RenderReact [![[version]](https://badge.fury.io/rb/render_react.svg)](http://badge.fury.io/rb/render_react)  [![[travis]](https://travis-ci.org/janlelis/render_react.svg)](https://travis-ci.org/janlelis/render_react)
+# RenderReact [![[version]](https://badge.fury.io/rb/render_react.svg)](https://badge.fury.io/rb/render_react) [![[ci]](https://github.com/janlelis/render_react/workflows/Test/badge.svg)](https://github.com/janlelis/render_react/actions?query=workflow%3ATest)
 
 A lo-fi way to render client- and server-side React components from Ruby:
 
@@ -132,6 +132,6 @@ RenderReact.on_server("ExampleComponent") # only static
 
 ## MIT License
 
-Copyright (C) 2017 Jan Lelis <http://janlelis.com>. Released under the MIT license.
+Copyright (C) 2017 Jan Lelis <https://janlelis.com>. Released under the MIT license.
 
 React is BSD licensed.

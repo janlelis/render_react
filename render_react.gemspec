@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.summary       = "Lo-fi way of rendering React components"
   gem.description   = "Lo-fi way of rendering React components."
   gem.authors       = ["Jan Lelis"]
-  gem.email         = ["mail@janlelis.de"]
+  gem.email         = ["hi@ruby.consulting"]
   gem.homepage      = "https://github.com/janlelis/render_react"
   gem.license       = "MIT"
 
@@ -17,6 +17,6 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.required_ruby_version = "~> 2.0"
+  gem.required_ruby_version = ">= 2.0"
   gem.add_dependency "execjs", "~> 2.7"
 end
